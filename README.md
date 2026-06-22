@@ -29,25 +29,6 @@ We compare two reservoirs of the **same size**, differing only in the underlying
 ---
 
 
-## The dataset
-
-The data is based on the public **NF-UNSW-NB15** NetFlow dataset, with DDoS bursts seeded in, and is
-shipped **already cleaned** under `cleaned_dataset/option_2/`. Each split comes as a pair of files:
-
-- `*_clean.csv` — the preprocessed **per-flow features** (one row per network flow);
-- `*_audit.csv` — the ground-truth labels kept *out* of the model (`Label`, `Attack`,
-  `is_seeded_ddos`, `row_in_window`).
-
-Cleaning applied upstream: heavy-tailed quantities (`duration`, `total_bytes`, `packet_size_avg`) are
-log-compressed, the protocol is one-hot encoded, and flows are grouped into `window_id` **time
-windows** (detection happens per window, not per flow).
-
-Per-flow columns used downstream: `src_ip`, `dst_ip`, `duration`, `total_bytes`,
-`packets_per_second`, `packet_size_avg`, `outbound_byte_ratio`, `window_id`.
-
-
----
-
 ## Getting started
 
 ```bash
@@ -61,8 +42,7 @@ jupyter lab QRC_tutorial_aqc.ipynb   # or: jupyter notebook
 ```
 
 Run the notebook top to bottom. It reads the local `cleaned_dataset/option_2/` folder directly
-(set `DATA_DIR` in the loading cell if your data lives elsewhere). To keep the walkthrough light,
-`MAX_FILES_PER_SPLIT` limits how many files are loaded — raise it to use more data.
+(set `DATA_DIR` in the loading cell if your data lives elsewhere). 
 
 ---
 
