@@ -32,8 +32,8 @@ We compare two reservoirs of the **same size**, differing only in the underlying
 ## Getting started
 
 ```bash
-git clone https://github.com/niccolo-sfregola/quantum-anomalydetection-ddos.git
-cd quantum-anomalydetection-ddos
+git clone https://github.com/niccolo-sfregola/tutorial-qml-quantumreservoir.git
+cd tutorial-qml-quantumreservoir
 
 # Python 3.10+ recommended
 pip install numpy pandas scikit-learn qiskit matplotlib jupyter
