@@ -70,7 +70,7 @@ Run the notebook top to bottom. It reads the local `cleaned_dataset/option_2/` f
 
 1. Why **reservoir computing** sidesteps the training pains of recurrent networks.
 2. How a **fixed quantum circuit** turns into a feature extractor with no trainable quantum parameters, and why that is attractive for **NISQ** devices.
-3. How a window's source-IP distribution can be viewed as a **density matrix**, why the scalars one reads from it (entropy, distance) are ultimately *classical* — so we keep just one, the **total-variation distance**, computed classically — and what the circuit genuinely adds: **entanglement entropy**.
+3. How a window's source-IP distribution can be viewed as a **density matrix**
 4. How to plug those features into a classical **unsupervised** anomaly detector trained *only on benign traffic*.
 
 **Roadmap**
