@@ -28,24 +28,6 @@ We compare two reservoirs of the **same size**, differing only in the underlying
 
 ---
 
-## Repository structure
-
-```
-.
-├── QRC_tutorial_aqc.ipynb          # the guided tutorial (start here)
-├── src/
-│   ├── quantum_reservoir.py        # QuantumReservoir: encoding, entangling layers, read-out
-│   └── ip_quantum_enrichment.py    # QuantumReservoirFeatureMap (IP-distribution enrichment)
-├── cleaned_dataset/
-│   └── option_2/
-│       ├── normal/{train,validation,test}/    # *_clean.csv  +  *_audit.csv
-│       └── attack/{train,validation,test}/    # *_clean.csv  +  *_audit.csv
-└── README.md
-```
-
-*(Adjust the paths above to match your actual layout.)*
-
----
 
 ## The dataset
 
@@ -63,9 +45,6 @@ windows** (detection happens per window, not per flow).
 Per-flow columns used downstream: `src_ip`, `dst_ip`, `duration`, `total_bytes`,
 `packets_per_second`, `packet_size_avg`, `outbound_byte_ratio`, `window_id`.
 
-> **Data provenance.** The base traffic comes from NF-UNSW-NB15; please respect its original terms and
-> attribution when redistributing. The seeded DDoS labels and the cleaning pipeline are part of this
-> project.
 
 ---
 
@@ -104,68 +83,13 @@ A didactic, runnable walkthrough of the whole pipeline:
 It includes **two short fill-in tasks** (the quantum entangling layer, and the classical ESN update),
 each with a collapsible **Hint** and **Solution**, so the notebook can double as an exercise sheet.
 
-### Features produced
 
-Both reservoirs share the same window aggregates and a classical distribution distance; only the
-reservoir read-out differs.
-
-- **Classical:** `c_node_0…9` (node activations) + `c_state_entropy` (spread of the activations) + `l1_distance`
-- **Quantum:** `z_qubit_0…9` (expectations after entangling) + `s_entanglement` (entanglement entropy) + `l1_distance`
-
-Here `l1_distance` is the total-variation distance of the window's source-IP distribution to a benign
-baseline. The **only** feature with no classical counterpart is `s_entanglement`.
 
 ---
 
-## Results (illustrative)
-
-On this clean benchmark the task is easy: the distribution distance `l1_distance` alone already reaches
-AUC ≈ 1.0, so the full-feature detector saturates for both methods. The interesting comparison is
-therefore on the **reservoir features only**. Indicative single-run AUCs (small test split):
-
-| feature group (alone) | detection AUC |
-|---|---|
-| classical `c_node_*` (10) | 0.834 |
-| quantum `z_qubit_*` (10) | 0.978 |
-| quantum `s_entanglement` (1) | 0.879 |
-| classical `c_state_entropy` (1) | 0.519 |
-| shared `l1_distance` (1) | 1.000 |
-
-Two observations stand out: at equal size the quantum read-out is more discriminative
-(`z_qubit_*` 0.978 vs `c_node_*` 0.834), and the **state-entropy scalar tells opposite stories** — the
-quantum `s_entanglement` carries real signal (0.879) while its classical analogue `c_state_entropy` is
-essentially chance (0.519). Same idea ("how complex is the reservoir's state"), different content.
-
----
-
-## Honest framing & limitations
-
-This is **not** a demonstration of quantum advantage:
-
-- the dataset is **clean and easily separable** — simple classical statistics already flag every attack;
-- the circuit is **classically simulated, noise-free** (no decoherence, the very effects that constrain
-  real hardware);
-- all figures are **single-run AUCs on a small test split** — treat them as indicative, not definitive.
-
-What the experiments support is a **representational** claim: at equal size, the quantum reservoir
-encodes a window more discriminatively than its classical counterpart, with a cleaner score margin.
-
-## Next steps
-
-The decisive test is the **data-scarcity regime** (detection AUC vs training-set size, averaged over
-seeds), where the full project's experiments suggest the quantum methods hold up better with far less
-data. Evaluation under realistic noise/decoherence models and on harder, traffic-masked attacks are the
-other natural directions.
-
----
 
 ## Acknowledgements
 
 Built for the **ETH Quantum Hackathon 2026** (1st place, team *Qool Quids*) and adapted as teaching
 material for the LMU course *Applications of Quantum Computing*. Base traffic data: NF-UNSW-NB15.
 
-## License
-
-Add a license of your choice for the code (e.g. MIT). Note that the bundled data derives from
-NF-UNSW-NB15 and is subject to that dataset's original terms — keep its attribution and licensing in
-mind before redistributing.
