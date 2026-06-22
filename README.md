@@ -68,20 +68,17 @@ Run the notebook top to bottom. It reads the local `cleaned_dataset/option_2/` f
 
 ## What the tutorial covers
 
-A didactic, runnable walkthrough of the whole pipeline:
+1. Why **reservoir computing** sidesteps the training pains of recurrent networks.
+2. How a **fixed quantum circuit** turns into a feature extractor with no trainable quantum parameters, and why that is attractive for **NISQ** devices.
+3. How a window's source-IP distribution can be viewed as a **density matrix**, why the scalars one reads from it (entropy, distance) are ultimately *classical* — so we keep just one, the **total-variation distance**, computed classically — and what the circuit genuinely adds: **entanglement entropy**.
+4. How to plug those features into a classical **unsupervised** anomaly detector trained *only on benign traffic*.
 
-1. **Load** the cleaned traffic data and understand the per-flow features.
-2. **Aggregate** flows into time windows and visualise the attack windows.
-3. **Density matrix** of the source-IP distribution — and why its scalar summaries (entropy, distance)
-   are, on a diagonal state, purely *classical*.
-4. **Two reservoirs** implemented side by side — a classical Echo State Network and a quantum circuit.
-5. **What the circuit really does** — a worked `ρ → UρU†` example showing that the global entropy and
-   trace distance are *unitarily invariant* (unchanged), while genuine **entanglement** appears.
-6. **Comparison** with confusion matrices, ROC / precision-recall curves, score distributions, a
-   PCA + linear-probe view of the feature spaces, and a feature-group ablation.
+**Roadmap**
 
-It includes **two short fill-in tasks** (the quantum entangling layer, and the classical ESN update),
-each with a collapsible **Hint** and **Solution**, so the notebook can double as an exercise sheet.
+1. Load the cleaned data and understand the features.
+2. Aggregate flows into **time windows** and visualise the attack windows.
+3. Introduce the **IP-address density matrix** and see why its scalar summaries are classical.
+4. Run the **classical reservoir** and the **quantum reservoir**, side by side, and identify exactly which features are *quantum*.
 
 
 
