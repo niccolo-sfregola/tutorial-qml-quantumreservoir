@@ -6,14 +6,12 @@ fixed (untrained) quantum circuit, reads out its state as features, and feeds th
 anomaly detector — comparing this quantum reservoir, head-to-head and at equal size, against a
 classical Echo State Network.
 
-> Originally built for the **ETH Quantum Hackathon 2026** (1st place, team *Qool Quids*) and since
-> turned into a teaching notebook for the LMU course *Applications of Quantum Computing*.
 
 ---
 
 ## Why reservoirs?
 
-The obvious quantum approach — training a variational circuit — runs into the **barren plateau**:
+Training a variational circuit runs into the **barren plateau** problem:
 gradients vanish exponentially as the circuit grows, and optimisation stalls. **Reservoir computing**
 sidesteps this entirely: the circuit is **fixed and random**, never trained; only a light read-out is
 used downstream. It needs no quantum optimisation, and its dynamics naturally carry **memory** of
